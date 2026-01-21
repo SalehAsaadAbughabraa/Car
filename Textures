@@ -1,0 +1,44 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+
+using namespace std;
+
+void createMaterialFile(const string& filename, 
+                       float ambientR, float ambientG, float ambientB,
+                       float diffuseR, float diffuseG, float diffuseB,
+                       float specularR, float specularG, float specularB,
+                       float shininess, const string& materialName) {
+    
+    ofstream file(filename);
+    
+    file << "# ملف مادة: " << materialName << "\n";
+    file << "# مشروع معرض السيارات\n";
+    file << "# بيانيات الحاسوب 2025-2026\n";
+    file << "newmtl " << materialName << "\n";
+    file << "Ka " << ambientR << " " << ambientG << " " << ambientB << "\n";
+    file << "Kd " << diffuseR << " " << diffuseG << " " << diffuseB << "\n";
+    file << "Ks " << specularR << " " << specularG << " " << specularB << "\n";
+    file << "Ns " << shininess << "\n\n";
+    
+    file.close();
+    cout << "تم إنشاء: " << filename << endl;
+}
+
+int main() {
+    cout << "إنشاء الخامات اليدوية...\n";
+    system("mkdir Textures 2>nul");
+    
+    createMaterialFile("Textures/wood_floor.mtl",
+        0.25f, 0.18f, 0.12f, 0.45f, 0.32f, 0.22f, 0.15f, 0.10f, 0.08f, 15.0f, "wood_floor");
+    
+    createMaterialFile("Textures/car_paint.mtl",
+        0.15f, 0.00f, 0.00f, 0.85f, 0.10f, 0.10f, 1.00f, 0.30f, 0.30f, 200.0f, "car_paint");
+    
+    createMaterialFile("Textures/car_glass.mtl",
+        0.10f, 0.10f, 0.15f, 0.70f, 0.70f, 1.00f, 0.90f, 0.90f, 1.00f, 300.0f, "car_glass");
+    
+    cout << "اكتمل إنشاء 3 خامات يدوية\n";
+    system("pause");
+    return 0;
+}
